@@ -1,0 +1,11 @@
+node_modules/
+.svelte-kit/
+build/
+.DS_Store
+
+# Local credentials, environment and runtime output
+.env
+.env.*
+!.env.example
+*.local
+*.log

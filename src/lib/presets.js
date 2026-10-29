@@ -1,0 +1,18 @@
+export const presets = [
+ {id:'upsc-cse',name:'UPSC CSE',sub:'Civil Services Examination',icon:'building',tag:'Popular',width:420,height:540,minKB:20,maxKB:200,sigWidth:500,sigHeight:350,sigMinKB:20,sigMaxKB:100,photo:true,source:'https://upsc.gov.in/examinations/active-examinations',checked:'29 Oct 2026',status:'spec',note:'UPSC also matches a live photo in its portal. For your signature, sign three times on one sheet. Confirm this year’s notice before submitting.',short:'Photo + signature'},
+ {id:'ssc-cgl',name:'SSC CGL',sub:'Combined Graduate Level',icon:'book',tag:'Signature only',width:420,height:540,minKB:20,maxKB:50,sigWidth:600,sigHeight:200,sigMinKB:10,sigMaxKB:20,photo:false,source:'https://ssc.gov.in/api/attachment/uploads/masterData/NoticeBoards/Notice_of_adv_cgl_2026.pdf',checked:'29 Oct 2026',status:'spec',note:'SSC CGL takes your photo live inside its portal. Use this tool to prepare your signature. The 600 × 200 px export keeps the 3:1 ratio; verify the current portal’s pixel limits.',short:'Signature · 10–20 KB'},
+ {id:'neet-ug',name:'NEET UG',sub:'National Eligibility cum Entrance Test',icon:'cross',tag:'Check notice',width:413,height:531,minKB:10,maxKB:200,sigWidth:400,sigHeight:150,sigMinKB:10,sigMaxKB:30,photo:true,source:'https://neet.nta.nic.in/',checked:'29 Oct 2026',status:'unverified',note:'Check the NTA bulletin: signature limits vary between sources. A recent photo on white is required. A separate 4 × 6 inch postcard export is available.',short:'Passport + postcard'},
+ {id:'ibps',name:'IBPS',sub:'PO, Clerk & RRB',icon:'briefcase',tag:'',width:200,height:230,minKB:20,maxKB:50,sigWidth:140,sigHeight:60,sigMinKB:10,sigMaxKB:20,photo:true,source:'https://www.ibps.in/',checked:'29 Oct 2026',status:'unverified',note:'Requirements can vary by recruitment. Check your current IBPS notice before submitting. These values are a starting point.',short:'Photo + signature'},
+ {id:'pan',name:'PAN card',sub:'Protean / NSDL & UTIITSL',icon:'card',tag:'Check provider',width:295,height:413,minKB:10,maxKB:50,sigWidth:400,sigHeight:150,sigMinKB:5,sigMaxKB:50,photo:true,source:'https://www.protean-tinpan.com/',checked:'29 Oct 2026',status:'unverified',note:'Protean and UTIITSL have different digital upload limits. This is a 2.5 × 3.5 cm photo at 300 DPI. Set your provider’s exact KB limits under Custom.',short:'Photo + signature'},
+ {id:'sarathi',name:'Driving licence',sub:'Sarathi / Parivahan',icon:'card',tag:'Check portal',width:420,height:525,minKB:10,maxKB:50,sigWidth:400,sigHeight:150,sigMinKB:5,sigMaxKB:50,photo:true,source:'https://sarathi.parivahan.gov.in/',checked:'29 Oct 2026',status:'unverified',note:'Check your state’s Sarathi portal. Signature values are a starting point and need confirmation.',short:'Photo + signature'},
+ {id:'custom',name:'Custom size',sub:'Set your own dimensions & file size',icon:'sliders',tag:'',width:200,height:230,minKB:20,maxKB:50,sigWidth:400,sigHeight:150,sigMinKB:10,sigMaxKB:20,photo:true,source:null,checked:null,status:'custom',note:'Copy the exact dimensions, format and file size from your application form.',short:'Pixels, cm or KB'}
+];
+export function outputSpec(preset, mode, custom, postcard = false) {
+ if(preset.id === 'custom') {
+   const factor = custom.unit === 'cm' ? custom.dpi / 2.54 : 1;
+   return {width:Math.round(custom.width*factor),height:Math.round(custom.height*factor),minKB:+custom.minKB,maxKB:+custom.maxKB,dpi:+custom.dpi};
+ }
+ if(mode === 'signature') return {width:preset.sigWidth,height:preset.sigHeight,minKB:preset.sigMinKB,maxKB:preset.sigMaxKB,dpi:300};
+ if(postcard) return {width:800,height:1200,minKB:10,maxKB:200,dpi:200};
+ return {width:preset.width,height:preset.height,minKB:preset.minKB,maxKB:preset.maxKB,dpi:300};
+}

@@ -1,0 +1,3 @@
+static/vision/* linguist-vendored
+static/vision/vision_wasm*.js -whitespace
+third_party/* -whitespace
